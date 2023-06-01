@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-collection",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "vite插件集合",
   "main": "dist/index.umd.js",
   "typings": "dist/index.d.ts",
