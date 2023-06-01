@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.2",
-    "@vue/compiler-sfc": "^3.3.4"
+    "@vue/compiler-sfc": "^3.3.4",
+    "bluebird": "^3.7.2"
   }
 }

@@ -1,10 +1,10 @@
 import { createFilter } from '@rollup/pluginutils';
 import { parse } from '@vue/compiler-sfc';
 import fs from 'fs';
-import { promisify } from 'util';
 import { FilterPattern } from 'vite';
+const Promise = require('bluebird');
 
-const readFile = promisify(fs.readFile);
+const readFile = Promise.promisify(fs.readFile);
 
 /**
  * 用于给小程序页面添加 <oa-page> 标签, 以便于在小程序中使用vconsole
