@@ -25,6 +25,10 @@ export function vitePluginUniappOaPage(exclude: FilterPattern = 'src/pages/mock/
       const templateBlock = parsed.descriptor.template;
       if (templateBlock) {
         const originalContent = templateBlock.content;
+        // 检查 originalContent 是否已经包含了 <oa-page> 标签
+        if (originalContent.includes('<oa-page>')) {
+          return;
+        }
         const wrappedContent = `<oa-page>${originalContent}</oa-page>`;
         const start = templateBlock.loc.start.offset;
         const end = templateBlock.loc.end.offset;
