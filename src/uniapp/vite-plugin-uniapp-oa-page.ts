@@ -34,9 +34,11 @@ export function vitePluginUniappOaPage(
     opts = { ...opts, ...options };
   }
 
+  // 闭包变量，不依赖 this
+  let cachedFilter: any = null;
+
   return {
     name: 'vite-plugin-uniapp-oa-page', // 必须的，将会显示在警告和错误中
-    cachedFilter: null as any,
 
     configResolved(resolvedConfig: any) {
       // 尝试从 pages.json 读取页面配置
@@ -54,7 +56,7 @@ export function vitePluginUniappOaPage(
 
           // 只有当有效的 patterns 时才使用 pages.json 模式
           if (patterns.length > 0) {
-            this.cachedFilter = createFilter(patterns, opts.exclude);
+            cachedFilter = createFilter(patterns, opts.exclude);
             return;
           }
         }
@@ -63,11 +65,11 @@ export function vitePluginUniappOaPage(
       }
 
       // 降级到原有的 glob 模式
-      this.cachedFilter = createFilter('src/pages/**/index.vue', opts.exclude);
+      cachedFilter = createFilter('src/pages/**/index.vue', opts.exclude);
     },
 
     async load(id: string) {
-      if (!this.cachedFilter(id)) {
+      if (!cachedFilter(id)) {
         return;
       }
       const code = await readFile(id, 'utf-8');
