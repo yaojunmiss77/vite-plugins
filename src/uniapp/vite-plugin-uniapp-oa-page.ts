@@ -43,7 +43,7 @@ export function vitePluginUniappOaPage(
     configResolved(resolvedConfig: any) {
       // 尝试从 pages.json 读取页面配置
       try {
-        const pagesPath = path.resolve(resolvedConfig.root, 'pages.json');
+        const pagesPath = path.resolve(resolvedConfig.root, 'src/pages.json');
         const content = fs.readFileSync(pagesPath, 'utf-8');
         const config = JSON.parse(content);
 
