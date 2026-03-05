@@ -20,9 +20,7 @@ interface VitePluginUniappOaPageOptions {
  *   - exclude: 排除的文件模式，默认排除 'src/pages/mock/index.vue'
  * @returns
  */
-export function vitePluginUniappOaPage(
-  options?: string | VitePluginUniappOaPageOptions
-) {
+export function vitePluginUniappOaPage(options?: string | VitePluginUniappOaPageOptions) {
   // 参数解析，支持向后兼容
   let opts: VitePluginUniappOaPageOptions = { prefix: 'src/', exclude: 'src/pages/mock/index.vue' };
 
@@ -49,10 +47,10 @@ export function vitePluginUniappOaPage(
 
         // 检查 pages 字段是否存在且为数组
         if (Array.isArray(config.pages) && config.pages.length > 0) {
-          // 构建 patterns 列表
+          // 构建 patterns 列表（使用绝对路径以匹配 Vite 的 id）
           const patterns = config.pages
             .filter((p: any) => p && typeof p.path === 'string')
-            .map((p: any) => `${opts.prefix}${p.path}.vue`);
+            .map((p: any) => path.resolve(resolvedConfig.root, `${opts.prefix}${p.path}.vue`));
 
           // 只有当有效的 patterns 时才使用 pages.json 模式
           if (patterns.length > 0) {
